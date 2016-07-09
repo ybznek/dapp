@@ -1,0 +1,7 @@
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Debug/CommandLine.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Debug/Newtonsoft.Json.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Debug/Docker_app.exe.mdb
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Debug/Docker_app.exe
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Debug/Docker_app.exe
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Debug/Docker_app.exe.mdb

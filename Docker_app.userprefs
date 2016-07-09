@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="Docker_app/Docker_app.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="packages/CommandLineParser.1.9.71/readme.txt">
+    <Files>
+      <File FileName="Docker_app/Docker.cs" Line="25" Column="3" />
+      <File FileName="Docker_app/Program.cs" Line="1" Column="1" />
+      <File FileName="packages/CommandLineParser.1.9.71/readme.txt" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

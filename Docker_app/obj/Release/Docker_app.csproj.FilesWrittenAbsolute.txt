@@ -1,0 +1,13 @@
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Docker_app.exe.mdb
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Docker_app.exe
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Release/Docker_app.exe
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/obj/Release/Docker_app.exe.mdb
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Docker.DotNet.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Microsoft.Threading.Tasks.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Microsoft.Threading.Tasks.Extensions.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Microsoft.Threading.Tasks.Extensions.Desktop.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/Newtonsoft.Json.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/System.Net.Http.Extensions.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/System.Net.Http.Primitives.dll
+/p/C_Sharp/Docker_app/Docker_app_intellij/Docker_app/Docker_app/bin/Release/CommandLine.dll
