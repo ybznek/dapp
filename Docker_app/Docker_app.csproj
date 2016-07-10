@@ -59,16 +59,21 @@
     <Compile Include="Dapp\Configuration\DockerConfig.cs" />
     <Compile Include="Dapp\Configuration\DockerContainer.cs" />
     <Compile Include="Dapp\Configuration\DockerService.cs" />
+    <Compile Include="Dapp\Configuration\Exec.cs" />
     <Compile Include="Dapp\Configuration\IDockerLogger.cs" />
+    <Compile Include="Dapp\Configuration\IExec.cs" />
     <Compile Include="Dapp\Configuration\IMount.cs" />
     <Compile Include="Dapp\Configuration\Mount.cs" />
     <Compile Include="Dapp\Configuration\RunOptions.cs" />
+    <Compile Include="Dapp\Desktop\Desktop.cs" />
+    <Compile Include="Dapp\Desktop\DesktopFile.cs" />
     <Compile Include="Dapp\Docker_runner\Docker.commands.cs" />
     <Compile Include="Dapp\Docker_runner\Docker.container.cs" />
     <Compile Include="Dapp\Docker_runner\Docker.main.cs" />
     <Compile Include="Dapp\Docker_runner\Docker.names.cs" />
     <Compile Include="Dapp\Docker_runner\Docker.process.cs" />
     <Compile Include="Dapp\Docker_runner\DockerException.cs" />
+    <Compile Include="Dapp\Docker_runner\Name.cs" />
     <Compile Include="Dapp\Docker_runner\ParamsBuilder.cs" />
     <Compile Include="Dapp\Docker_runner\ProcessHelper.cs" />
     <Compile Include="Dapp\TableFormatter.cs" />
@@ -83,6 +88,7 @@
     <Folder Include="Dapp" />
     <Folder Include="Dapp\Commandline" />
     <Folder Include="Dapp\Configuration" />
+    <Folder Include="Dapp\Desktop" />
     <Folder Include="Dapp\Docker_runner" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

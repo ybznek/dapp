@@ -6,8 +6,6 @@ using CommandLine;
 using Docker_app.Dapp.Configuration;
 using StringTuple = System.Tuple<string, string>;
 
-// if you want text formatting helpers (recommended)
-
 namespace Docker_app.Dapp.Commandline
 {
   class Options
@@ -38,6 +36,9 @@ namespace Docker_app.Dapp.Commandline
 
     [Option("o", "optimize", HelpText = "Optimize dockerfile - remove layers")]
     public bool Optimize { get; set; }
+
+    [Option("x", "create-desktop", HelpText = "Create desktop file")]
+    public string CreateDesktop { get; set; }
 
     public RunOptions RunOpts
     {

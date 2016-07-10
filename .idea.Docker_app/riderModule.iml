@@ -4,8 +4,17 @@
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/17/bee57d7d/Console.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/17/bee57d7d/Console.cs" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/19/858a5beb/File.cs">
+      <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/19/858a5beb/File.cs" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/34/a329a1b9/DateTime.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/34/a329a1b9/DateTime.cs" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/35/781b8e63/FileAccess.cs">
+      <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/35/781b8e63/FileAccess.cs" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/3a/948ebd5f/FileMode.cs">
+      <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/3a/948ebd5f/FileMode.cs" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/54/8ff2392e/FileSystemInfo.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/54/8ff2392e/FileSystemInfo.cs" isTestSource="false" />
@@ -31,6 +40,9 @@
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/eb/4f1472d5/MemberInfo.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/eb/4f1472d5/MemberInfo.cs" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/eb/fc2b120b/String.cs">
+      <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/4BD38221-5A9A-4A26-B2E5-C43C475B6BE8/eb/fc2b120b/String.cs" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/8FDEBA13-79C4-4847-8DC4-F120ABA8AF39/46/c25b1e9a/Parser.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/8FDEBA13-79C4-4847-8DC4-F120ABA8AF39/46/c25b1e9a/Parser.cs" isTestSource="false" />
     </content>
@@ -45,6 +57,9 @@
     </content>
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9C7ADF89-66F0-4BB3-BE6F-A97F705C77A6/a7/b98196a2/RecommendedAsConfigurableAttribute.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9C7ADF89-66F0-4BB3-BE6F-A97F705C77A6/a7/b98196a2/RecommendedAsConfigurableAttribute.cs" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9C7ADF89-66F0-4BB3-BE6F-A97F705C77A6/d0/629afb98/DescriptionAttribute.cs">
+      <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9C7ADF89-66F0-4BB3-BE6F-A97F705C77A6/d0/629afb98/DescriptionAttribute.cs" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9EA670CD-BF41-450A-A8BE-B1F63C6429DB/1b/6d4a240b/XmlConfigurator.cs">
       <sourceFolder url="file://$USER_HOME$/.local/share/JetBrains/Shared/v06/DecompilerCache/decompiler/9EA670CD-BF41-450A-A8BE-B1F63C6429DB/1b/6d4a240b/XmlConfigurator.cs" isTestSource="false" />

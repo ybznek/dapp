@@ -4,7 +4,7 @@ namespace Docker_app.Dapp.Configuration
 {
   public enum ContainerStatus
   {
-    [Description("Not exists")] NotExists,
+    NotExists,
     Stopped,
     Running
   }

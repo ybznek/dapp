@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Docker_app.Dapp.Configuration;
 
@@ -19,7 +20,7 @@ namespace Docker_app.Dapp.Docker_runner
       Logger = logger;
     }
 
-    protected ParamsBuilder Params() => new ParamsBuilder();
+    protected ParamsBuilder Params(bool escape = true) => new ParamsBuilder(escape);
 
     public string LoadDockerfile(string filepath, Dictionary<string, string> dictionary)
     {
@@ -57,7 +58,7 @@ namespace Docker_app.Dapp.Docker_runner
       return output.TrimEnd();
     }
 
-    public bool Build(string imageName, string path, Dictionary<string, string> dictionary = null,
+    public void Build(string imageName, string path, Dictionary<string, string> dictionary = null,
       bool optimize = false)
     {
       if (optimize)
@@ -70,14 +71,15 @@ namespace Docker_app.Dapp.Docker_runner
 
       foreach (var line in dockerfile.Split('\n'))
       {
-        Logger.Dockerfile(line);
+        Logger.Dockerfile(line, important: true);
       }
 
       Environment.CurrentDirectory = path;
       var args = Params()
                  | "build"
                  | "-t"
-                 | imageName;
+                 | imageName
+                 | "-";
 
       var process = Run(args);
       using (var inp = process.StandardInput)
@@ -87,13 +89,16 @@ namespace Docker_app.Dapp.Docker_runner
 
       foreach (var line in process.ReadOutputLines())
       {
-        Logger.Output(line);
+        Logger.Output(line, true);
       }
       process.WaitForExit();
-      return process.ExitCode == 0;
+      if (process.ExitCode != 0)
+      {
+        throw new DockerException(args, process.ExitCode);
+      }
     }
 
-    public bool RunApp(string path, string execName, Dictionary<string, string> dictionary = null,
+    public bool RunApp(string path, IExec exec, DockerConfig config,
       RunOptions options = RunOptions.None)
     {
       var name = new DirectoryInfo(path).Name;
@@ -107,18 +112,18 @@ namespace Docker_app.Dapp.Docker_runner
         status = ContainerStatus.Stopped;
       }
 
-      if (options.HasFlag(RunOptions.Recreate) && (status == ContainerStatus.Stopped))
+      if (options.HasFlag(RunOptions.Recreate) || (status == ContainerStatus.Stopped))
       {
         RemoveContainer(containerName);
         status = ContainerStatus.NotExists;
       }
 
-      if (status == ContainerStatus.NotExists)
+      if (options.HasFlag(RunOptions.Rebuild) || (status == ContainerStatus.NotExists))
       {
-        Build(imageName, path, dictionary, options.HasFlag(RunOptions.Optimize));
+        Build(imageName, path, config.Vars, options.HasFlag(RunOptions.Optimize));
         status = ContainerStatus.Running;
 
-        RunContainer(containerName, name, imageName);
+        RunContainer(containerName, config, name, imageName);
         status = ContainerStatus.Running;
       }
       if (status == ContainerStatus.Stopped)
@@ -133,36 +138,60 @@ namespace Docker_app.Dapp.Docker_runner
 
       if (status == ContainerStatus.Running)
       {
-        ExecProgram(containerName, execName);
+        ExecProgram(containerName, exec);
       }
 
 
       return true;
     }
 
-
-    protected void ExecProgram(string containerName, string execName)
+    protected void AppendUserParam(ParamsBuilder b, string user)
     {
-      var uid = GetUseId("-u");
-      var gid = GetUseId("-g");
+      if (string.IsNullOrEmpty(user))
+      {
+        var uid = GetUseId("-u");
+        var gid = GetUseId("-g");
+        b = b | "-u" | $"{uid}:{gid}";
+      }
+      else if (user == "root")
+      {
+        b = b | "-u" | "0:0";
+      }
+    }
+
+    protected void ExecProgram(string containerName, IExec exec)
+    {
       var display = Environment.GetEnvironmentVariable("DISPLAY");
 
-      var args = Params()
-                 | "exec" | "-t" | "-u"
-                 | $"{uid}:{gid}"
-                 | containerName
-                 | "sh" | "-c" | (
-                   Params()
-                   + $"DISPLAY={display}"
-                   | $"{execName}"
-                 );
+      var args = Params(!exec.ExecProcess) | "exec";
 
-      Run(
-        param: args,
-        stdin: false,
-        stdout: false,
-        stderr: false
-      );
+      if (exec.Flags != null)
+      {
+        args = exec.Flags.Aggregate(args, (current, flag) => current | flag);
+      }
+
+      AppendUserParam(args, exec.User);
+
+      args = args | containerName
+             | "sh" | "-c" | (
+               Params()
+               + $"DISPLAY={display}"
+               + $"{exec.Cmd}"
+             );
+
+      if (exec.ExecProcess)
+      {
+        Exec(args);
+      }
+      else
+      {
+        Run(
+          param: args,
+          stdin: false,
+          stdout: false,
+          stderr: false
+        );
+      }
     }
 
 
@@ -170,9 +199,8 @@ namespace Docker_app.Dapp.Docker_runner
     {
       var c = app.Container;
       var path = c.ContainerPath;
-      var config = c.Config.Vars;
       var appRunnable = c.Config.GetExecRunnable(app.Name);
-      RunApp(path, appRunnable, config, options);
+      RunApp(path, appRunnable, c.Config, options);
     }
   }
 }

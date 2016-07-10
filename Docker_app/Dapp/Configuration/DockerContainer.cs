@@ -26,7 +26,7 @@ namespace Docker_app.Dapp.Configuration
         }
       }
 
-      public IEnumerable<KeyValuePair<string, string>> Apps => Config.GetExecList();
+      public IEnumerable<KeyValuePair<string, IExec>> Apps => Config.GetExecList();
 
       public DockerContainer(string containerPath)
       {

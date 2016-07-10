@@ -4,6 +4,6 @@
      {
        string Host { get; }
        string Container { get; }
-       string Type { get; }
+       string Mode { get; }
      }
 }

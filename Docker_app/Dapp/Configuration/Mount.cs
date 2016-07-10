@@ -1,14 +1,28 @@
-﻿namespace Docker_app.Dapp.Configuration
+﻿using System.ComponentModel;
+
+namespace Docker_app.Dapp.Configuration
 {
+  public class Mount : IMount
+  {
+    public string Host => host;
+    public string Container => container;
+    public string Mode => mode;
 
-    public class Mount : IMount
+    private enum MountMode : byte
     {
-      public string Host => host;
-      public string Container => container;
-      public string Type => type;
-
-      public string host;
-      public string container;
-      public string type;
+      Rw,
+      Ro
     }
+
+    public string host;
+    public string container;
+
+    public string mode
+    {
+      get { return _mode == MountMode.Rw ? "rw" : "ro"; }
+      set { _mode = value.Equals("rw") ? MountMode.Rw : MountMode.Ro; }
+    }
+
+    private MountMode _mode;
+  }
 }

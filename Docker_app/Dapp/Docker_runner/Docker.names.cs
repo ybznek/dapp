@@ -2,13 +2,13 @@
 {
   public partial class Docker
   {
-    protected string GetHostname(string name)
+    public string GetHostname(string name)
       => $"{name.ToLower().Replace('_', '.')}.{Prefix.ToLower().Replace('_', '.')}";
 
-    protected string GetContainerName(string name)
+    public string GetContainerName(string name)
       => $"{Prefix}_{name}";
 
-    protected string GetImageName(string name)
+    public string GetImageName(string name)
       => $"{Prefix.ToLower()}/{name}";
   }
 }

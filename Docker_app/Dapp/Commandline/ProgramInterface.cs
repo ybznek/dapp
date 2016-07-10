@@ -16,16 +16,21 @@ namespace Docker_app.Dapp.Commandline
 
     private DockerService _dockerService { get; set; }
 
-    public ProgramInterface(string[] args)
+    private string Prefix => "DOCKER_APP";
+
+    private string _runnable;
+
+    public ProgramInterface(string[] args, string runnable)
     {
       var parser = new CommandLineParser();
       parsed = parser.ParseArguments(args, opts);
+      _runnable = runnable;
     }
 
     public void Run()
     {
       var logger = new DockerLogger(opts.Verbose);
-      _dockerService = new DockerService("DOCKER_APP", logger);
+      _dockerService = new DockerService(Prefix, logger);
       try
       {
         if (parsed)
@@ -58,6 +63,13 @@ namespace Docker_app.Dapp.Commandline
           {
             ShowApp(apps, opts.Details);
           }
+
+          // Desktop file
+          if (!string.IsNullOrEmpty(opts.CreateDesktop))
+          {
+            var d = new Desktop.Desktop(Prefix, _runnable);
+            CreateDesktop(d,apps,opts.CreateDesktop);
+          }
         }
         else
         {
@@ -67,7 +79,7 @@ namespace Docker_app.Dapp.Commandline
       }
       catch (DockerException ex)
       {
-        logger.Exit($"Exited with exit code ({ex.ExitCode}: docker {ex.Message})");
+        logger.Exit($"Exited with exit code ({ex.ExitCode}): docker {ex.Message}");
       }
     }
 
@@ -112,6 +124,16 @@ namespace Docker_app.Dapp.Commandline
       docker.RunDockerApp(app, options);
     }
 
+    private void CreateDesktop(Desktop.Desktop desktop, DockerApps apps, string appName)
+    {
+      var toRun = apps.GetApps(appName).ToArray();
+
+      if (!CheckApps(toRun)) return;
+
+      var app = toRun[0];
+      desktop.create(app);
+    }
+
     private void ShowApp(DockerApps apps, string appName)
     {
       var toRun = apps.GetApps(appName).ToArray();
@@ -123,8 +145,8 @@ namespace Docker_app.Dapp.Commandline
 
       // DockerContainer
       Console.Out.WriteLine("DockerContainer: ");
-
-      var status = Docker.GetContainerStatus(container.Name);
+      var docker = Docker;
+      var status = docker.GetContainerStatus(docker.GetContainerName(container.Name));
       Console.Out.Write(string.Format($"\t{container.Name} ({status})\n"));
 
       // DockerContainer Path
@@ -135,7 +157,7 @@ namespace Docker_app.Dapp.Commandline
       Console.Out.WriteLine("Mounts: ");
       foreach (var mount in container.Config.Mounts)
       {
-        Console.Out.Write(string.Format($"\t{mount.Type.ToUpper()}: {mount.Host} => {mount.Container}\n"));
+        Console.Out.Write(string.Format($"\t{mount.Mode.ToUpper()}: {mount.Host} => {mount.Container}\n"));
       }
     }
   }

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Concurrent;
+using System.Linq;
+using System.Text;
 using Docker_app.Dapp.Configuration;
 
 namespace Docker_app.Dapp.Docker_runner
@@ -8,8 +10,7 @@ namespace Docker_app.Dapp.Docker_runner
     public ContainerStatus GetContainerStatus(string containerName)
     {
       var args = Params()
-                 | "ps"
-                 | "-a"
+                 | "ps" | "-a"
                  | $"--filter=name={containerName}"
                  | "--format"
                  | "{{.Status}}"
@@ -31,27 +32,30 @@ namespace Docker_app.Dapp.Docker_runner
       }
     }
 
-    public void RemoveContainer(string containerName) => RunNow(Params() | "rm" | containerName);
+    public void RemoveContainer(string containerName)
+      => RunNow(Params() | "rm" | "-f" | containerName, important: false);
 
-    public void KillContainer(string containerName) => RunNow(Params() | "kill" | containerName);
+    public void KillContainer(string containerName) => RunNow(Params() | "kill" | containerName, important: false);
 
-    protected void RunContainer(string containerName, string name, string imageName)
+    protected void RunContainer(string containerName, DockerConfig config, string name, string imageName)
     {
       var args = Params()
                  | "run"
-                 | "-tid"
-                 | "-v" | "/etc/passwd:/etc/passwd:ro"
-                 | "-v" | "/etc/group:/etc/group:ro"
-                 | "-v" | "/p:/p"
-                 | "-v" | "/home:/home"
-                 | "-v" | "/root:/root"
-                 | "-v" | "/tmp:/tmp"
-                 | "--name" | containerName
-                 | "--hostname" | GetHostname(containerName)
-                 | imageName
-                 | "cat";
+                 | "-tid";
 
-      RunNow(args);
+      config.Mounts.Aggregate(args,
+        (current, mount)
+          => current | "-v" | $"{mount.Host}:{mount.Container}:{mount.Mode}");
+
+      config.Flags.Aggregate(args, (current, flag) => current | flag);
+
+      args = args
+             | "--name" | containerName
+             | "--hostname" | GetHostname(containerName)
+             | imageName
+             | "cat";
+
+      RunNow(args, important: false);
     }
   }
 }

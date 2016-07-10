@@ -6,7 +6,7 @@ namespace Docker_app.Dapp.Configuration
   {
     void Command(string cmd, bool important = false);
     void Output(string msg, bool important = false);
-    void Exit(string msg, bool important = false);
-    void Dockerfile(string msg, bool important = false);
+    void Exit(string msg, bool important = true);
+    void Dockerfile(string msg, bool important = true);
   }
 }

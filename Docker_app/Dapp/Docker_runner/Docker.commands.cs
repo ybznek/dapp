@@ -3,6 +3,6 @@
   public partial class Docker
   {
 
-    public string GetVersion() => RunNowOutput("--version");
+    public string GetVersion() => RunNowOutput(Params()|"--version");
   }
 }

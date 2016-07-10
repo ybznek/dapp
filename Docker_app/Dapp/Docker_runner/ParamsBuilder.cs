@@ -1,11 +1,22 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Docker_app.Dapp.Docker_runner
 {
   public class ParamsBuilder
   {
-    private readonly StringBuilder _stringBuilder = new StringBuilder();
+    private readonly bool _escape;
+
+    public ParamsBuilder(bool escape=true)
+    {
+      _escape = escape;
+    }
+
+    private readonly List<string> _args = new List<string>();
+
+    public IEnumerable<string> Params => _args;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ParamsBuilder operator |(ParamsBuilder b, string param)
@@ -28,26 +39,31 @@ namespace Docker_app.Dapp.Docker_runner
       return a;
     }
 
+
     public void AppendNotEscape(string param)
     {
-      if (_stringBuilder.Length != 0)
-      {
-        _stringBuilder.Append(' ');
-      }
-      _stringBuilder.Append(param);
+      _args.Add(param);
     }
 
     public void Append(string param)
     {
-      if (_stringBuilder.Length != 0)
+      if (_escape)
       {
-        _stringBuilder.Append(' ');
+        var p = param.Replace("\"", "\\\"");
+        _args.Add($"\"{p}\"");
       }
-
-      var p = param.Replace("\"", "\\\"");
-      _stringBuilder.Append($"\"{p}\"");
+      else
+      {
+        _args.Add(param);
+      }
     }
 
-    public override string ToString() => _stringBuilder.ToString();
+    public static implicit operator string(ParamsBuilder p)
+    {
+      return p.ToString();
+    }
+
+
+    public override string ToString() => string.Join(" ", _args);
   }
 }
