@@ -8,5 +8,6 @@ namespace Docker_app.Dapp.Configuration
     string User { get; }
     bool ExecProcess { get; }
     IEnumerable<string> Flags { get; }
+    Dictionary<string, string> Desktop { get; }
   }
 }

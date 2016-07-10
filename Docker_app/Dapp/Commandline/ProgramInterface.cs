@@ -37,12 +37,6 @@ namespace Docker_app.Dapp.Commandline
         {
           var apps = new DockerApps(new[] {"/home/data/projects/docker/apps/"});
 
-          // Help
-          if (opts.Help)
-          {
-            Console.WriteLine(opts.GetUsage());
-          }
-
           // Applications
           if (opts.List)
           {
@@ -50,26 +44,32 @@ namespace Docker_app.Dapp.Commandline
 
             var appsEnumerable = PrepareApps(apps.Apps);
             TableFormatter.Format(Console.Error, appsEnumerable, "\t{0}\t({1})\n");
+            return;
           }
 
           // Run
           if (!string.IsNullOrEmpty(opts.App))
           {
             RunApp(apps, opts.App, opts.RunOpts);
+            return;
           }
 
           // Details
           if (!string.IsNullOrEmpty(opts.Details))
           {
             ShowApp(apps, opts.Details);
+            return;
           }
 
           // Desktop file
           if (!string.IsNullOrEmpty(opts.CreateDesktop))
           {
             var d = new Desktop.Desktop(Prefix, _runnable);
-            CreateDesktop(d,apps,opts.CreateDesktop);
+            CreateDesktop(d, apps, opts.CreateDesktop);
+            return;
           }
+
+          Console.WriteLine(opts.GetUsage());
         }
         else
         {

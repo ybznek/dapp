@@ -8,15 +8,13 @@ using Newtonsoft.Json;
 
 namespace Docker_app.Dapp.Configuration
 {
-
-
-
   public class ConfigData
   {
     public Dictionary<string, Exec> exec;
     public Mount[] mount;
     public Dictionary<string, string> vars;
     public string[] flags;
+
   }
 
   public class DockerConfig
@@ -29,6 +27,8 @@ namespace Docker_app.Dapp.Configuration
 
     public IEnumerable<string> Flags => _configData.flags;
 
+
+
     public DockerConfig(string filename)
 
     {
@@ -40,10 +40,10 @@ namespace Docker_app.Dapp.Configuration
       }
     }
 
-    public IEnumerable<KeyValuePair<string,IExec>> GetExecList()
+    public IEnumerable<KeyValuePair<string, IExec>> GetExecList()
     {
       return _configData.exec.Select(
-        kv => new KeyValuePair<string, IExec>(kv.Key,kv.Value)
+        kv => new KeyValuePair<string, IExec>(kv.Key, kv.Value)
       );
     }
 
