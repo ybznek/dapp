@@ -165,10 +165,7 @@ namespace Docker_app.Dapp.Docker_runner
 
       var args = Params(!exec.ExecProcess) | "exec";
 
-      if (exec.Flags != null)
-      {
-        args = exec.Flags.Aggregate(args, (current, flag) => current | flag);
-      }
+      exec.Flags?.Aggregate(args, (current, flag) => current | flag);
 
       AppendUserParam(args, exec.User);
 

@@ -42,12 +42,11 @@ namespace Docker_app.Dapp.Docker_runner
       var args = Params()
                  | "run"
                  | "-tid";
-
-      config.Mounts.Aggregate(args,
+      config.Mounts?.Aggregate(args,
         (current, mount)
           => current | "-v" | $"{mount.Host}:{mount.Container}:{mount.Mode}");
 
-      config.Flags.Aggregate(args, (current, flag) => current | flag);
+      config.Flags?.Aggregate(args, (current, flag) => current | flag);
 
       args = args
              | "--name" | containerName
