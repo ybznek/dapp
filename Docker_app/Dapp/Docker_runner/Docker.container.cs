@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Docker_app.Dapp.Configuration;
 
 namespace Docker_app.Dapp.Docker_runner
@@ -37,7 +35,7 @@ namespace Docker_app.Dapp.Docker_runner
 
     public void KillContainer(string containerName) => RunNow(Params() | "kill" | containerName, important: false);
 
-    protected void RunContainer(string containerName, DockerConfig config, string name, string imageName)
+    protected void RunContainer(string containerName, ContainerConfig config, string name, string imageName)
     {
       var args = Params()
                  | "run"

@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Docker_app.Dapp.Configuration
+﻿namespace Docker_app.Dapp
 {
   public interface IDockerLogger
   {

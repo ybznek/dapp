@@ -1,25 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Permissions;
-using Docker_app.Dapp.Configuration;
 using Docker_app.Dapp.Docker_runner;
+using Docker_app.Dapp.Structures;
 
 namespace Docker_app.Dapp.Desktop
 {
-  static class DictHelper
-  {
-    public static string SafeGet(this Dictionary<string, string> dict, string key)
-    {
-      string val;
-
-      return
-        dict.TryGetValue(key, out val)
-          ? (!string.IsNullOrEmpty(val) ? val : null)
-          : null;
-    }
-  }
-
   public class Desktop
   {
     private string UserDir => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -28,14 +13,14 @@ namespace Docker_app.Dapp.Desktop
 
     private readonly string _runnerPath;
 
-    private readonly string exePattern = "<EXE>";
+    private const string ExePattern = "<exe>";
 
     public string DesktopFilename(string container, string app)
       => $"{DesktopFilesDir}/{Prefix}-{container}-{app}.desktop";
 
-    public Desktop(string prefix, string runnerPath)
+    public Desktop(DappConfig config, string runnerPath)
     {
-      Prefix = prefix;
+      Prefix = config.DesktopPrefix;
       _runnerPath = runnerPath;
     }
 
@@ -43,7 +28,7 @@ namespace Docker_app.Dapp.Desktop
       => new ParamsBuilder() | _runnerPath | "-r" | $"{containerName}/{appName}";
 
 
-    public void create(DockerApp app)
+    public void Create(DockerApp app)
     {
       var containerName = app.Container.Name;
       var appName = app.Name;
@@ -54,35 +39,31 @@ namespace Docker_app.Dapp.Desktop
       string comment = null;
       string name = null;
 
-      string runnerPath = GetExecPath(containerName, appName);
+      var runnerPath = GetExecPath(containerName, appName);
       if (desktopConfig != null)
       {
-        name = desktopConfig.SafeGet("name");
-        comment = desktopConfig.SafeGet("comment");
+        name = desktopConfig.name;
 
-        if (desktopConfig.TryGetValue("icon", out icon))
+        comment = desktopConfig.comment;
+
+
+        if (!string.IsNullOrEmpty(desktopConfig.icon))
         {
-          if (!string.IsNullOrEmpty(icon))
+          switch (icon[0])
           {
-            switch (icon[0])
-            {
-              case '.': // relative
-                icon = Path.Combine(app.Container.ContainerPath, icon); // make it absolute
-                break;
-              case '/': // absolute
-                break;
-              default: // freedesktop
-                break;
-            }
+            case '.': // relative
+              icon = Path.Combine(app.Container.ContainerPath, icon); // make it absolute
+              break;
+            case '/': // absolute
+              break;
+            default: // freedesktop
+              break;
           }
         }
-        if (desktopConfig.TryGetValue("terminal", out terminal))
+        if (!string.IsNullOrEmpty(desktopConfig.terminal))
         {
-          if (terminal != null)
-          {
-            string param = new ParamsBuilder(true) | runnerPath;
-            terminal = terminal.Replace(exePattern, param);
-          }
+          string param = new ParamsBuilder(true) | runnerPath;
+          terminal = desktopConfig.terminal.Replace(ExePattern, param);
         }
       }
 
@@ -100,7 +81,7 @@ namespace Docker_app.Dapp.Desktop
           w.WriteLine("Comment=" + (comment ?? "DockerApp app"));
           w.WriteLine($"Name=" + (name ?? appName));
 
-          w.WriteLine("Exec=" + (terminal ?? runnerPath));
+          w.WriteLine("DappApp=" + (terminal ?? runnerPath));
           if (icon != null)
           {
             w.WriteLine($"Icon={icon}");

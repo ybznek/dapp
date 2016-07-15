@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Docker_app
+namespace Docker_app.Dapp.Docker_runner
 {
   struct Name<T>
   {

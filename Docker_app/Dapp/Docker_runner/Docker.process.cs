@@ -18,7 +18,7 @@ namespace Docker_app.Dapp.Docker_runner
 
     protected void Exec(ParamsBuilder args)
     {
-      Logger.Command(args,false);
+      Logger.Command(args, false);
       var exit = ProcessHelper.Exec(DockerCmd, args.Params);
       if (exit != 0)
       {
@@ -38,7 +38,8 @@ namespace Docker_app.Dapp.Docker_runner
       process.WaitForExit();
       if (process.ExitCode != 0)
       {
-        throw new DockerException(param, process.ExitCode);
+        var errorLog = process.StandardError.ReadToEnd();
+        throw new DockerException($"{param}\n{errorLog}", process.ExitCode);
       }
     }
 

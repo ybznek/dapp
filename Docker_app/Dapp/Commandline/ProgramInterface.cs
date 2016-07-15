@@ -4,6 +4,7 @@ using System.Linq;
 using CommandLine;
 using Docker_app.Dapp.Configuration;
 using Docker_app.Dapp.Docker_runner;
+using Docker_app.Dapp.Structures;
 
 namespace Docker_app.Dapp.Commandline
 {
@@ -16,8 +17,6 @@ namespace Docker_app.Dapp.Commandline
 
     private DockerService _dockerService { get; set; }
 
-    private string Prefix => "DOCKER_APP";
-
     private string _runnable;
 
     public ProgramInterface(string[] args, string runnable)
@@ -29,19 +28,31 @@ namespace Docker_app.Dapp.Commandline
 
     public void Run()
     {
+      var dapCfg = new DappConfig("/tmp/config");
+      dapCfg.Load();
       var logger = new DockerLogger(opts.Verbose);
-      _dockerService = new DockerService(Prefix, logger);
+      _dockerService = new DockerService(dapCfg, logger);
       try
       {
         if (parsed)
         {
-          var apps = new DockerApps(new[] {"/home/data/projects/docker/apps/"});
+          var apps = new DockerApps(dapCfg);
+
+          // Generate template
+          if (!string.IsNullOrEmpty(opts.GenerateApp))
+          {
+            apps.GenerateTemplate(opts.GenerateApp);
+          }
 
           // Applications
           if (opts.List)
           {
             Console.WriteLine("Applications:");
-
+            foreach (var p in apps.Apps)
+            {
+              Console.WriteLine("|>>" + p.Name);
+            }
+            Console.WriteLine("NMew");
             var appsEnumerable = PrepareApps(apps.Apps);
             TableFormatter.Format(Console.Error, appsEnumerable, "\t{0}\t({1})\n");
             return;
@@ -64,7 +75,7 @@ namespace Docker_app.Dapp.Commandline
           // Desktop file
           if (!string.IsNullOrEmpty(opts.CreateDesktop))
           {
-            var d = new Desktop.Desktop(Prefix, _runnable);
+            var d = new Desktop.Desktop(dapCfg, _runnable);
             CreateDesktop(d, apps, opts.CreateDesktop);
             return;
           }
@@ -131,7 +142,7 @@ namespace Docker_app.Dapp.Commandline
       if (!CheckApps(toRun)) return;
 
       var app = toRun[0];
-      desktop.create(app);
+      desktop.Create(app);
     }
 
     private void ShowApp(DockerApps apps, string appName)

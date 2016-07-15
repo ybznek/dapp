@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Docker_app.Dapp.Configuration
+﻿namespace Docker_app.Dapp
 {
   public enum ContainerStatus
   {

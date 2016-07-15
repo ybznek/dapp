@@ -37,8 +37,11 @@ namespace Docker_app.Dapp.Commandline
     [Option("o", "optimize", HelpText = "Optimize dockerfile - remove layers")]
     public bool Optimize { get; set; }
 
-    [Option("x", "create-desktop", HelpText = "Create desktop file")]
+    [Option("x", "Create-desktop", HelpText = "Create desktop file")]
     public string CreateDesktop { get; set; }
+
+    [Option("g", "gen-app", HelpText = "Generate app template")]
+    public string GenerateApp { get; set; }
 
     public RunOptions RunOpts
     {

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Runtime.InteropServices;
-
-namespace Docker_app.Dapp.Desktop
+﻿namespace Docker_app.Dapp.Desktop
 {
   public class DesktopFile
   {

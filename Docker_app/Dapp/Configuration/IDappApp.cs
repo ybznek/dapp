@@ -2,12 +2,13 @@
 
 namespace Docker_app.Dapp.Configuration
 {
-  public interface IExec
+  public interface IDappApp
   {
     string Cmd { get; }
     string User { get; }
     bool ExecProcess { get; }
+
+    DesktopConfig Desktop { get; }
     IEnumerable<string> Flags { get; }
-    Dictionary<string, string> Desktop { get; }
   }
 }

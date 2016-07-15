@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Runtime.Serialization;
 
 namespace Docker_app.Dapp.Configuration
 {
+  [DataContract]
   public class Mount : IMount
   {
     public string Host => host;
@@ -14,9 +15,13 @@ namespace Docker_app.Dapp.Configuration
       Ro
     }
 
+    [DataMember(Name = "host")]
     public string host;
+
+    [DataMember(Name = "container")]
     public string container;
 
+    [DataMember(Name = "mode")]
     public string mode
     {
       get { return _mode == MountMode.Rw ? "rw" : "ro"; }

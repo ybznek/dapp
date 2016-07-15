@@ -1,7 +1,6 @@
 ﻿using System;
-using Docker_app.Dapp.Docker_runner;
 
-namespace Docker_app.Dapp.Configuration
+namespace Docker_app.Dapp.Docker_runner
 {
   public class DockerService
   {
@@ -9,7 +8,7 @@ namespace Docker_app.Dapp.Configuration
     {
       if (_docker != null) return _docker;
 
-      _docker = new Docker(Prefix, Logger);
+      _docker = new Docker(_cfg, Logger);
 
 #if DEBUG
       var version = _docker.GetVersion();
@@ -22,11 +21,12 @@ namespace Docker_app.Dapp.Configuration
     private Docker _docker = null;
 
     private IDockerLogger Logger { get; }
-    private string Prefix { get; }
 
-    public DockerService(string prefix, IDockerLogger logger)
+    private DappConfig _cfg;
+
+    public DockerService(DappConfig cfg, IDockerLogger logger)
     {
-      Prefix = prefix;
+      _cfg = cfg;
       Logger = logger;
     }
   }

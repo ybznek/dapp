@@ -5,19 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Docker_app.Dapp.Configuration;
+using Docker_app.Dapp.Structures;
 
 namespace Docker_app.Dapp.Docker_runner
 {
   public partial class Docker
   {
-    public string Prefix { get; protected set; }
-
+    private DappConfig _config;
     private IDockerLogger Logger { get; }
 
-    public Docker(string prefix, IDockerLogger logger)
+    public Docker(DappConfig config, IDockerLogger logger)
     {
-      Prefix = prefix;
       Logger = logger;
+      _config = config;
     }
 
     protected ParamsBuilder Params(bool escape = true) => new ParamsBuilder(escape);
@@ -98,7 +98,7 @@ namespace Docker_app.Dapp.Docker_runner
       }
     }
 
-    public bool RunApp(string path, IExec exec, DockerConfig config,
+    public bool RunApp(string path, IDappApp dapApp, ContainerConfig config,
       RunOptions options = RunOptions.None)
     {
       var name = new DirectoryInfo(path).Name;
@@ -138,7 +138,7 @@ namespace Docker_app.Dapp.Docker_runner
 
       if (status == ContainerStatus.Running)
       {
-        ExecProgram(containerName, exec);
+        ExecProgram(containerName, dapApp);
       }
 
 
@@ -159,24 +159,25 @@ namespace Docker_app.Dapp.Docker_runner
       }
     }
 
-    protected void ExecProgram(string containerName, IExec exec)
+    protected void ExecProgram(string containerName, IDappApp dapApp)
     {
       var display = Environment.GetEnvironmentVariable("DISPLAY");
 
-      var args = Params(!exec.ExecProcess) | "exec";
 
-      exec.Flags?.Aggregate(args, (current, flag) => current | flag);
+      var args = Params(!dapApp.ExecProcess) | "exec";
 
-      AppendUserParam(args, exec.User);
+      dapApp.Flags?.Aggregate(args, (current, flag) => current | flag);
+
+      AppendUserParam(args, dapApp.User);
 
       args = args | containerName
              | "sh" | "-c" | (
                Params()
                + $"DISPLAY={display}"
-               + $"{exec.Cmd}"
+               + $"{dapApp.Cmd}"
              );
 
-      if (exec.ExecProcess)
+      if (dapApp.ExecProcess)
       {
         Exec(args);
       }
