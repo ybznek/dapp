@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppConfigData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Docker_app.Dapp.Configuration">
+  <apps>
+    <app>
+      <name>moje</name>
+      <config>
+        <command>sh</command>
+        <desktop i:nil="true" />
+        <exec>true</exec>
+        <flags>
+			<flag>-ti</flag>
+		</flags>
+        <user i:nil="true" />
+        
+      </config>
+    </app>
+  </apps>
+  <flags>
+  </flags>
+  <mounts />
+  <variables>
+    <var>
+      <name>klic</name>
+      <value>hodnota</value>
+    </var>
+  </variables>
+</AppConfigData>
+

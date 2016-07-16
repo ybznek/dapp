@@ -1,0 +1,18 @@
+{
+	"exec": {
+		"xterm": "xterm",
+		"nemo": "nemo"
+	},
+	"mount": [
+		{
+			"host": "/v",
+			"container": "/v",
+			"type": "ro"
+		},
+		{
+			"host": "/tmp",
+			"container": "/tmp",
+			"type": "rw"
+		}
+	]
+}

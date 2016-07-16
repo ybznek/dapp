@@ -1,0 +1,29 @@
+version: 1.0
+description: "Apps for C# development under Linux"
+apps:
+  rider:
+    cmd: "/home/z/riderRS-146.2572/bin/rider.sh"
+    desktop:
+      icon: "./Rider_128.png"
+      name: "Rider C#"
+      comment: "Rider in container"
+  unity3d:
+    cmd: ""
+mounts:
+- host: /etc/passwd
+  container: /etc/passwd
+  mode: ro
+- host: /etc/groups
+  container: /etc/groups
+  mode: ro
+- host: /p
+  container: /p
+  mode: rw
+- host: /home
+  container: /home
+  mode: overlay
+- host: /tmp
+  container: /tmp
+  mode: rw
+variables:
+  key: value

@@ -1,0 +1,58 @@
+{
+	"options" : {
+		"user": "host"
+	},
+	"exec": {
+		"svp": "/usr/bin/mpv --input-ipc-server=/tmp/mpvsocket --hwdec=no /tmp/film.avi",
+		"svp-sm": "smplayer",
+		"svp-vlc": "vlc",
+		"svp-bash": "bash",
+		"svp-smplayer": "smplayer",
+		"svp-install": "/svp4-linux-64.run",
+		"manage": {
+			"cmd" : "bash",
+			"user": "root",
+			"exec_process": true,
+			"flags" : [
+				"-ti"
+			],
+			"desktop" : {
+				"icon" : "network-server",
+				"terminal": "terminator -e <EXE>"
+			}
+		}
+
+	},
+	"mount": [
+		{
+			"host": "/tmp",
+			"container": "/tmp",
+			"type": "rw"
+		},
+		{
+			"host": "/net",
+			"container": "/net",
+			"type": "rw"
+		},
+		{
+			"host": "/home",
+			"container": "/home",
+			"type": "rw"
+		},
+		{
+			"host": "/etc/passwd",
+			"container": "/etc/passwd",
+			"type": "rw"
+		},
+		{
+			"host": "/etc/groups",
+			"container": "/etc/groups",
+			"type": "rw"
+		}
+		
+	],
+	"flags" : [
+		"--privileged",
+		"--ipc=host"
+	]
+}

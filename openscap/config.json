@@ -1,0 +1,24 @@
+{
+	"vars" : {
+		"dir" : "/openscap"
+	},
+	"options" : {
+		"user": "root"
+	},
+	"exec": {
+		"openscap-devel": {
+			"cmd" : "bash",
+			"user": "root",
+			"exec_process": true,
+			"flags" : [
+				"-ti"
+			],
+			"desktop" : {
+				"icon" : "network-server",
+				"terminal": "terminator -e <exe>"
+			}
+		}
+
+	},
+
+}
